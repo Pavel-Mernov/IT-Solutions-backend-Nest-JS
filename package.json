@@ -1,0 +1,55 @@
+{
+  "name": "digital-business-card",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "npm run db:prepare && node dist/src/main.js",
+    "dev": "npm run build && npm start",
+    "db:prepare": "tsx prisma/prepare.ts && prisma migrate deploy && prisma db seed",
+    "test": "npm run build && npm run test:backend",
+    "typecheck": "tsc --noEmit",
+    "postinstall": "prisma generate",
+    "test:backend": "node --test dist/test/unit/*.test.js dist/test/functional/*.test.js dist/test/integration/*.test.js",
+    "test:unit": "npm run build && node --test dist/test/unit/*.test.js",
+    "test:functional": "npm run build && node --test dist/test/functional/*.test.js",
+    "test:integration": "npm run build && node --test dist/test/integration/*.test.js",
+    "test:e2e": "playwright test",
+    "test:all": "npm test && npm run test:e2e",
+    "build:frontend": "npm --prefix frontend run build",
+    "format": "prettier --write src prisma test frontend/src frontend/e2e frontend/vite.config.ts playwright.config.ts scripts/e2e-backend.mjs tsconfig.json frontend/tsconfig.json package.json frontend/package.json compose.yaml README.md"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@apollo/server": "^5.0.0",
+    "@as-integrations/express5": "^1.1.2",
+    "@nestjs/apollo": "^14.2.0",
+    "@nestjs/common": "^12.0.0",
+    "@nestjs/core": "^12.0.0",
+    "@nestjs/graphql": "^14.2.0",
+    "@nestjs/platform-express": "^12.0.0",
+    "@prisma/client": "6.19.0",
+    "graphql": "^16.11.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "prisma": "6.19.0",
+    "tsx": "^4.20.0"
+  },
+  "devDependencies": {
+    "@nestjs/testing": "^12.4.2",
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^22.0.0",
+    "prettier": "^3.10.1",
+    "typescript": "^5.9.0"
+  },
+  "overrides": {
+    "effect": "^3.20.0",
+    "deepmerge-ts": "^8.0.0",
+    "@graphql-tools/utils": "^12.0.2"
+  }
+}

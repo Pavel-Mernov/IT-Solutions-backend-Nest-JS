@@ -1,0 +1,19 @@
+services:
+  api:
+    image: digital-card-backend:local
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - card-data:/app/data
+    init: true
+  frontend:
+    image: digital-card-frontend:local
+    build: ./frontend
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      api:
+        condition: service_healthy
+volumes:
+  card-data:
