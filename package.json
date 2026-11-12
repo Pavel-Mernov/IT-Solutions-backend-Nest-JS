@@ -9,7 +9,7 @@
     "build": "tsc -p tsconfig.json",
     "start": "npm run db:prepare && node dist/src/main.js",
     "dev": "npm run build && npm start",
-    "db:prepare": "tsx prisma/prepare.ts && prisma migrate deploy && prisma db seed",
+    "db:prepare": "prisma migrate deploy && prisma db seed",
     "test": "npm run build && npm run test:backend",
     "typecheck": "tsc --noEmit",
     "postinstall": "prisma generate",

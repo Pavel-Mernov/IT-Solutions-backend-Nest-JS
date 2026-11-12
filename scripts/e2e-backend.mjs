@@ -1,13 +1,19 @@
-import { mkdtemp, rm } from "node:fs/promises";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { randomUUID } from "node:crypto";
 import { spawn } from "node:child_process";
+import { PrismaClient } from "@prisma/client";
 
 // A private database and dedicated port keep browser tests away from the user's data.
-const directory = await mkdtemp(join(tmpdir(), "card-e2e-"));
+const baseUrl =
+  process.env.TEST_DATABASE_URL ??
+  process.env.DATABASE_URL ??
+  "postgresql://card:card@127.0.0.1:5432/card?schema=public";
+const schema = `e2e_${randomUUID().replaceAll("-", "")}`;
+const parsedUrl = new URL(baseUrl);
+parsedUrl.searchParams.set("schema", schema);
+const admin = new PrismaClient({ datasourceUrl: baseUrl });
 const env = {
   ...process.env,
-  DATABASE_URL: `file:${join(directory, "card.db")}`,
+  DATABASE_URL: parsedUrl.toString(),
   PORT: "3100",
 };
 let child;
@@ -19,7 +25,8 @@ async function stop(code = 0) {
     child.kill("SIGTERM");
     await new Promise((resolve) => child.once("exit", resolve));
   }
-  await rm(directory, { recursive: true, force: true });
+  await admin.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
+  await admin.$disconnect();
   process.exit(code);
 }
 process.on("SIGINT", () => void stop());
@@ -34,14 +41,11 @@ function run(command, args) {
   });
 }
 try {
+  await admin.$executeRawUnsafe(`CREATE SCHEMA "${schema}"`);
   await run(process.execPath, [
     "node_modules/typescript/bin/tsc",
     "-p",
     "tsconfig.json",
-  ]);
-  await run(process.execPath, [
-    "node_modules/tsx/dist/cli.mjs",
-    "prisma/prepare.ts",
   ]);
   await run(process.execPath, [
     "node_modules/prisma/build/index.js",

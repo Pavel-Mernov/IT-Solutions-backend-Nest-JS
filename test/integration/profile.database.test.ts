@@ -51,7 +51,18 @@ test("a failed seed rolls back all profile and collection changes", async () => 
         order: 999,
       },
     });
-    await db.$executeRaw`CREATE TRIGGER reject_project BEFORE INSERT ON Project BEGIN SELECT RAISE(ABORT, 'seed failure'); END`;
+    await db.$executeRawUnsafe(`
+      CREATE FUNCTION reject_project() RETURNS trigger AS $$
+      BEGIN
+        RAISE EXCEPTION 'seed failure';
+      END;
+      $$ LANGUAGE plpgsql
+    `);
+    await db.$executeRawUnsafe(`
+      CREATE TRIGGER reject_project
+      BEFORE INSERT ON "Project"
+      FOR EACH ROW EXECUTE FUNCTION reject_project()
+    `);
     await assert.rejects(seed(db));
     assert.equal(
       (await db.profile.findUniqueOrThrow({ where: { id: "owner" } })).name,
@@ -68,14 +79,11 @@ test("a failed seed rolls back all profile and collection changes", async () => 
 });
 
 test("nested collection SQL count stays bounded as data grows", async () => {
-  await withDatabase(async (db) => {
+  await withDatabase(async (db, url) => {
     await seed(db);
     // A separate client observes actual SQL on this test database.
-    const database = await db.$queryRaw<
-      { file: string }[]
-    >`PRAGMA database_list`;
     const tracing = new PrismaClient({
-      datasourceUrl: `file:${database[0].file}`,
+      datasourceUrl: url,
       log: [{ emit: "event", level: "query" }],
     });
     let queries = 0;

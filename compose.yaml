@@ -1,19 +1,37 @@
 services:
+  postgres:
+    image: postgres:16.4-alpine
+    environment:
+      POSTGRES_DB: card
+      POSTGRES_USER: card
+      POSTGRES_PASSWORD: card
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U card -d card"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
   api:
     image: digital-card-backend:local
     build: .
     ports:
       - "127.0.0.1:3000:3000"
-    volumes:
-      - card-data:/app/data
+    environment:
+      DATABASE_URL: postgresql://card:card@postgres:5432/card?schema=public
+    depends_on:
+      postgres:
+        condition: service_healthy
     init: true
   frontend:
     image: digital-card-frontend:local
     build: ./frontend
     ports:
-      - "127.0.0.1:8080:80"
+      - "127.0.0.1:8081:80"
     depends_on:
       api:
         condition: service_healthy
 volumes:
-  card-data:
+  postgres-data:
