@@ -18,10 +18,20 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 40px;
+  max-width: 100%;
+  overflow-x: clip;
 }
 body {
   margin: 0;
-  overflow-x: hidden;
+  max-width: 100%;
+  overflow-x: clip;
+}
+#root,
+main,
+section,
+article {
+  min-width: 0;
+  max-width: 100%;
 }
 a {
   color: inherit;
@@ -287,7 +297,28 @@ section:not(.hero) {
   transform: rotate(-2deg);
 }
 .experience-list {
-  margin-top: 46px;
+  margin-top: 20px;
+}
+.experience-subheading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 54px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #c8c3b9;
+}
+.experience-subheading h3 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+.experience-subheading span {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 .experience {
   display: grid;
@@ -301,10 +332,12 @@ section:not(.hero) {
   color: #777269;
 }
 .experience h3 {
-  font-size: 28px;
+  font-size: clamp(32px, 3vw, 42px);
+  line-height: 1.05;
   letter-spacing: -0.035em;
   margin: 0;
-  font-weight: 500;
+  font-weight: 700;
+  overflow-wrap: anywhere;
 }
 .experience h3 .arrow-icon {
   opacity: 0;
@@ -364,29 +397,6 @@ section:not(.hero) {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
-.other-projects {
-  margin-top: 72px;
-}
-.other-projects-heading {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 24px;
-  border-bottom: 1px solid #c8c3b9;
-  padding-bottom: 18px;
-}
-.other-projects-heading h3 {
-  margin: 0;
-  font-size: 30px;
-  font-weight: 500;
-  letter-spacing: -0.04em;
-}
-.other-projects-heading span {
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
 .project-grid-compact .project-card {
   min-height: 330px;
 }
@@ -399,6 +409,7 @@ section:not(.hero) {
   border: 1px solid var(--ink);
   display: flex;
   flex-direction: column;
+  min-width: 0;
   transition:
     transform 0.25s,
     box-shadow 0.25s;
@@ -418,6 +429,8 @@ section:not(.hero) {
 }
 .card-topline {
   display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
   justify-content: space-between;
   border-bottom: 1px solid rgba(23, 22, 19, 0.28);
   padding-bottom: 14px;
@@ -428,6 +441,7 @@ section:not(.hero) {
   letter-spacing: -0.055em;
   font-weight: 700;
   margin: 42px 0 25px;
+  overflow-wrap: anywhere;
 }
 .project-card > p {
   max-width: 550px;
@@ -448,9 +462,12 @@ section:not(.hero) {
   padding: 4px 10px;
   font-size: 9px;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
+  max-width: 100%;
 }
 .project-links {
   display: flex;
+  flex-wrap: wrap;
   gap: 24px;
   border-top: 1px solid rgba(23, 22, 19, 0.28);
   padding-top: 16px;
@@ -645,13 +662,21 @@ footer > span {
     padding-top: 38px;
   }
   .hero-copy h1 {
-    font-size: 52px;
+    font-size: clamp(40px, 13vw, 52px);
+    overflow-wrap: anywhere;
   }
   .portrait-wrap {
     width: 82%;
     align-self: flex-end;
     order: -1;
     margin: 25px 15px 15px 0;
+  }
+  .portrait-sticker {
+    right: -10px;
+  }
+  .hero-links,
+  .hero-meta {
+    flex-wrap: wrap;
   }
   .hero-meta {
     gap: 20px;
@@ -668,6 +693,16 @@ footer > span {
   }
   .experience > div:last-child {
     grid-column: 2;
+    min-width: 0;
+  }
+  .experience-subheading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 42px;
+  }
+  .experience h3 {
+    font-size: clamp(28px, 9vw, 36px);
   }
   .projects-heading {
     align-items: stretch;
@@ -684,6 +719,10 @@ footer > span {
     min-height: 390px;
     padding: 22px;
   }
+  .project-card h3,
+  .project-grid-compact .project-card h3 {
+    font-size: clamp(30px, 10vw, 42px);
+  }
   .education {
     grid-template-columns: 46px 1fr;
   }
@@ -691,7 +730,8 @@ footer > span {
     grid-column: 2;
   }
   .education h2 {
-    font-size: 46px;
+    font-size: clamp(32px, 10vw, 44px);
+    overflow-wrap: anywhere;
   }
   footer {
     grid-template-columns: 1fr;
@@ -700,6 +740,11 @@ footer > span {
   .footer-links,
   footer > span {
     grid-column: 1;
+  }
+  .footer-title,
+  .footer-links a {
+    overflow-wrap: anywhere;
+    min-width: 0;
   }
   .custom-cursor {
     display: none;

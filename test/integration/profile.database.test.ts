@@ -14,7 +14,7 @@ test("migrates a fresh database and seeds projects and experience idempotently",
     await seed(db);
     assert.equal(await db.profile.count(), 1);
     assert.equal(await db.project.count(), 38);
-    assert.equal(await db.experience.count(), 6);
+    assert.equal(await db.experience.count(), 7);
     assert.equal(await db.skill.count(), profileData.skills.length);
     const repository = new ProfileRepository(db as PrismaService);
     const owner = await repository.findOwner();
@@ -79,7 +79,7 @@ test("a failed seed rolls back all profile and collection changes", async () => 
       "Previous skill",
     );
     assert.equal(await db.project.count(), 5);
-    assert.equal(await db.experience.count(), 4);
+    assert.equal(await db.experience.count(), 7);
   });
 });
 

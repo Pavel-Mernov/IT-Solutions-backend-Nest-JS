@@ -10,30 +10,21 @@ test("displays the seeded backend profile and project experience", async ({
   await page.goto("/");
   const body = await (await response).json();
   expect(body.errors).toBeUndefined();
-  expect(body.data.profile.experience).toHaveLength(6);
+  expect(body.data.profile.experience).toHaveLength(7);
   await expect(
     page.getByAltText("Портрет — Павел Константинович Мернов"),
   ).toBeVisible();
-  await expect(page.locator("#experience article")).toHaveCount(6);
-  await expect(page.locator("#projects article")).toHaveCount(38);
+  await expect(page.locator("#experience article")).toHaveCount(7);
+  await expect(page.locator("#projects article")).toHaveCount(31);
   await expect(page.locator("#experience")).toContainText(
     "Октябрь 2024 — май 2025",
   );
-  await expect(
-    page.getByRole("link", {
-      name: "Визитная карточка на NestJS: репозиторий",
-    }),
-  ).toHaveAttribute(
-    "href",
-    "https://github.com/Pavel-Mernov/IT-Solutions-backend-Nest-JS",
+  await expect(page.locator("#experience")).toContainText(
+    "Визитная карточка на NestJS",
   );
-  await expect(
-    page.locator(".project-card", { hasText: "Визитная карточка на NestJS" }),
-  ).toContainText("Playwright");
   await expect(page.locator("#projects article").first()).toContainText(
-    "RISC-V Course",
+    "JunoScript",
   );
-  await expect(page.locator(".other-projects")).toContainText("JunoScript");
   expect(
     await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -50,15 +41,15 @@ test("filters projects by name and technology and handles no matches", async ({
 }) => {
   await page.goto("/");
   const search = page.getByRole("searchbox", { name: "Поиск проектов" });
-  await expect(page.locator("#projects article")).toHaveCount(38);
-  await search.fill("ClientSpace");
+  await expect(page.locator("#projects article")).toHaveCount(31);
+  await search.fill("JunoScript");
   await expect(page.locator("#projects article")).toHaveCount(1);
-  await expect(page.locator("#projects article")).toContainText("ClientSpace");
+  await expect(page.locator("#projects article")).toContainText("JunoScript");
   await search.fill("несуществующий проект");
   await expect(page.locator("#projects article")).toHaveCount(0);
   await expect(page.getByRole("status")).toContainText("Проекты не найдены");
   await search.fill("");
-  await expect(page.locator("#projects article")).toHaveCount(38);
+  await expect(page.locator("#projects article")).toHaveCount(31);
 });
 
 test("shows a backend error and retries against the real API", async ({

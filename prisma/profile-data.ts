@@ -141,6 +141,16 @@ export const profileData = {
       achievements:
         "Разработал desktop-приложение приватного мессенджера с текстовыми и голосовыми сообщениями и передачей файлов на C# и WPF.",
     },
+    {
+      company: "Личный проект",
+      projectName: "Визитная карточка на NestJS",
+      position: "Fullstack-разработчик",
+      period: "Ноябрь 2026 — настоящее время",
+      startDate: new Date("2026-11-01T00:00:00.000Z"),
+      endDate: null,
+      achievements:
+        "Разработал личное портфолио: React SPA, GraphQL API на NestJS, Prisma ORM и PostgreSQL. Настроил миграции, автоматическое заполнение базы, тесты, Docker и Nginx.",
+    },
   ],
   projects: [
     {

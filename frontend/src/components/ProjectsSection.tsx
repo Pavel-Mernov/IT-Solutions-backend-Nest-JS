@@ -2,12 +2,10 @@ import type { Project } from "../api";
 import { ArrowIcon } from "./ArrowIcon";
 interface Props {
   projects: Project[];
-  total: number;
   search: string;
   onSearch: (value: string) => void;
 }
-export function ProjectsSection({ projects, total, search, onSearch }: Props) {
-  const featured = projects.filter((project) => project.featured);
+export function ProjectsSection({ projects, search, onSearch }: Props) {
   const other = projects.filter((project) => !project.featured);
 
   const renderProject = (project: Project, index: number) => (
@@ -55,13 +53,13 @@ export function ProjectsSection({ projects, total, search, onSearch }: Props) {
         <div className="section-heading">
           <span className="section-number">03</span>
           <h2 id="projects-title">
-            Избранные
+            Публичные
             <br />
-            проекты <sup>{String(featured.length).padStart(2, "0")}</sup>
+            проекты <sup>{String(other.length).padStart(2, "0")}</sup>
           </h2>
         </div>
         <label className="search-label">
-          <span>ПОИСК ПО ПРОЕКТАМ</span>
+          <span>ПОИСК ПО GITHUB-ПРОЕКТАМ</span>
           <input
             type="search"
             placeholder="Название или технология"
@@ -70,27 +68,14 @@ export function ProjectsSection({ projects, total, search, onSearch }: Props) {
           />
         </label>
       </div>
-      {featured.length > 0 && (
-        <div className="project-grid">
-          {featured.map((project, index) => renderProject(project, index))}
-        </div>
-      )}
       {other.length > 0 && (
-        <div className="other-projects">
-          <div className="other-projects-heading">
-            <h3>Другие публичные проекты</h3>
-            <span>
-              {String(other.length).padStart(2, "0")} из {total} / GitHub
-            </span>
-          </div>
+        <div>
           <div className="project-grid project-grid-compact">
-            {other.map((project, index) =>
-              renderProject(project, index + featured.length),
-            )}
+            {other.map((project, index) => renderProject(project, index))}
           </div>
         </div>
       )}
-      {projects.length === 0 && (
+      {other.length === 0 && (
         <p className="no-results" role="status">
           Проекты не найдены. Попробуйте другое название или технологию.
         </p>

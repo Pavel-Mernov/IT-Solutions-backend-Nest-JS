@@ -18,6 +18,10 @@ export function ExperienceSection({
           Учебные, личные и командные проекты — от desktop до fullstack.
         </p>
       </div>
+      <div className="experience-subheading">
+        <h3>Избранные проекты</h3>
+        <span>{String(experience.length).padStart(2, "0")} / Портфолио</span>
+      </div>
       <div className="experience-list">
         {experience.length === 0 ? (
           <p>Опыт пока не добавлен.</p>

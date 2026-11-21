@@ -54,10 +54,14 @@ test("executes nested GraphQL contract through resolver and service", async () =
     }[];
   };
   assert.equal(profile.name, "Павел Константинович Мернов");
-  assert.equal(profile.experience.length, 6);
+  assert.equal(profile.experience.length, 7);
   assert.equal(profile.experience[0].projectName, "RISC-V Course");
   assert.equal(profile.experience[0].startDate, "2025-09-01T00:00:00.000Z");
   assert.match(profile.experience[4].period, /Октябрь 2024/);
+  assert.equal(
+    profile.experience[6].projectName,
+    "Визитная карточка на NestJS",
+  );
   assert.equal(profile.projects.length, 38);
   assert.ok(profile.projects[6].technologies.includes("React"));
   assert.equal(profile.projects[6].website, null);

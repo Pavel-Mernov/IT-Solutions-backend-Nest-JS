@@ -85,7 +85,6 @@ export function App() {
             <ExperienceSection experience={profile.experience} />
             <ProjectsSection
               projects={projects}
-              total={profile.projects.length}
               search={search}
               onSearch={setSearch}
             />
