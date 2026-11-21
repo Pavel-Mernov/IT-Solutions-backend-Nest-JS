@@ -49,12 +49,12 @@ test("executes nested GraphQL contract through resolver and service", async () =
     projects: { technologies: string[]; website: string | null }[];
   };
   assert.equal(profile.name, "Павел Константинович Мернов");
-  assert.equal(profile.experience.length, 4);
+  assert.equal(profile.experience.length, 6);
   assert.equal(profile.experience[0].projectName, "RISC-V Course");
   assert.equal(profile.experience[0].startDate, null);
-  assert.match(profile.experience[2].period, /3 курс/);
-  assert.ok(profile.projects[4].technologies.includes("React"));
-  assert.equal(profile.projects[4].website, null);
+  assert.match(profile.experience[4].period, /3 курс/);
+  assert.ok(profile.projects[6].technologies.includes("React"));
+  assert.equal(profile.projects[6].website, null);
 });
 
 test("allows missing profile and rejects unknown fields", async () => {

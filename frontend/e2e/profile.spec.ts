@@ -14,8 +14,8 @@ test("displays the seeded backend profile and project experience", async ({
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Павел Константинович Мернов",
   );
-  await expect(page.locator("#experience article")).toHaveCount(4);
-  await expect(page.locator("#projects article")).toHaveCount(5);
+  await expect(page.locator("#experience article")).toHaveCount(6);
+  await expect(page.locator("#projects article")).toHaveCount(7);
   await expect(page.locator("#experience")).toContainText(
     "3 курс; точные даты не указаны",
   );
@@ -46,7 +46,7 @@ test("filters projects by name and technology and handles no matches", async ({
 }) => {
   await page.goto("/");
   const search = page.getByRole("searchbox", { name: "Поиск проектов" });
-  await expect(page.locator("#projects article")).toHaveCount(5);
+  await expect(page.locator("#projects article")).toHaveCount(7);
   await search.fill("Kotlin");
   await expect(page.locator("#projects article")).toHaveCount(1);
   await expect(page.locator("#projects article")).toContainText("ClientSpace");
@@ -54,7 +54,7 @@ test("filters projects by name and technology and handles no matches", async ({
   await expect(page.locator("#projects article")).toHaveCount(0);
   await expect(page.getByRole("status")).toContainText("Проекты не найдены");
   await search.fill("");
-  await expect(page.locator("#projects article")).toHaveCount(5);
+  await expect(page.locator("#projects article")).toHaveCount(7);
 });
 
 test("shows a backend error and retries against the real API", async ({

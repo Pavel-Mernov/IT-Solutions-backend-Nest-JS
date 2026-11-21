@@ -1,9 +1,9 @@
-// Биография и проекты из «Резюме 4 CS TS.pdf»; текущая визитка добавлена отдельно.
+// Биография и проекты из «Резюме 5 CS TS.pdf»; текущая визитка добавлена отдельно.
 export const profileData = {
   name: "Павел Константинович Мернов",
-  title: "Junior Fullstack Developer — React, TypeScript, C#",
+  title: "Junior Fullstack Developer — React, TypeScript, C#, Kotlin / Java",
   description:
-    "Fullstack-разработчик, выпускник НИУ ВШЭ по направлению «Программная инженерия». Специализируюсь на React, TypeScript и Node.js / Express. Имею опыт разработки SPA-приложений, интеграции frontend с REST API и создания fullstack-приложений с написанием бэкенда на Node.js.",
+    "Fullstack-разработчик, выпускник НИУ ВШЭ по направлению «Программная инженерия». Специализируюсь на React, TypeScript и Node.js / Express, Java / Kotlin, Spring Boot, Android SDK, C# и WPF. Разрабатываю SPA, интегрирую frontend с REST API и создаю fullstack-приложения.",
   location: "Москва / гибрид",
   education:
     "НИУ ВШЭ, факультет компьютерных наук, Программная инженерия. Выпуск 2026.",
@@ -22,6 +22,8 @@ export const profileData = {
     "C#",
     "Node.js",
     "Express",
+    "Spring Boot",
+    "Java",
     "REST API",
     "JWT",
     "PostgreSQL",
@@ -39,6 +41,9 @@ export const profileData = {
     "GraphQL",
     "Apollo Server",
     "Apollo Sandbox",
+    "ChatGPT",
+    "Codex",
+    "Cursor",
   ],
   // Проектный опыт из резюме: точные даты не указаны, поэтому не выдумываем их.
   experience: [
@@ -51,6 +56,26 @@ export const profileData = {
       endDate: null,
       achievements:
         "Разработал SPA frontend, JWT-аутентификацию и взаимодействие через REST API. Реализовал микросервисную backend-архитектуру и автоматическую проверку решений студентов.",
+    },
+    {
+      company: "Хакатон Альфа-Будущее",
+      projectName: "Smart-Credit",
+      position: "Frontend-разработчик — командный проект",
+      period: "Хакатон; даты не указаны",
+      startDate: null,
+      endDate: null,
+      achievements:
+        "Разработал адаптивный кредитный кабинет и пошаговое оформление заявки. Интегрировал backend API, ролевые интерфейсы, AI-помощника, ML-индикацию проверки и светлую/тёмную темы.",
+    },
+    {
+      company: "Hack&Change — трек Авито",
+      projectName: "naparnik",
+      position: "Frontend-разработчик и DevOps — командный проект",
+      period: "Хакатон; даты не указаны",
+      startDate: null,
+      endDate: null,
+      achievements:
+        "Создал интерфейсы для стажёра, бадди, эксперта и руководителя, путь адаптации, задачи, AI-чат, уведомления и базу знаний. Развернул веб-приложение на Linux-сервере в Docker.",
     },
     {
       company: "Личный проект",
@@ -102,6 +127,35 @@ export const profileData = {
       ],
     },
     {
+      name: "Smart-Credit",
+      url: "https://github.com/worker4556/smart-credit",
+      website: "https://alfabank.ru/alfafuture/event/hack/",
+      description:
+        "Командный проект для хакатона «Альфа-Будущее». Умный кредитный кабинет для малого и микробизнеса с адаптивным интерфейсом, пошаговой заявкой, ролевым доступом, AI-помощником и отслеживанием статуса.",
+      technologies: [
+        "React",
+        "TypeScript",
+        "Material UI",
+        "REST API",
+        "AI / ML",
+      ],
+    },
+    {
+      name: "naparnik",
+      url: "https://github.com/Pavel-Mernov/naparnik",
+      website: "https://naparnik.pavelmernov.ru/",
+      description:
+        "Командный проект Hack&Change, трек Авито. ИИ-помощник для адаптации стажёров: персональный путь, задачи, чат с Напарником, уведомления и база знаний для разных ролей.",
+      technologies: [
+        "React",
+        "TypeScript",
+        "Material UI",
+        "Docker",
+        "Linux",
+        "AI",
+      ],
+    },
+    {
       name: "Clover English",
       url: "https://github.com/Pavel-Mernov/CloverEnglishReact",
       website: "https://www.cloverenglish.ru",
@@ -138,7 +192,7 @@ export const profileData = {
         "NestJS",
         "Prisma ORM",
         "Prisma Migrate",
-        "SQLite",
+        "PostgreSQL",
         "GraphQL",
         "Apollo Server",
         "Apollo Sandbox",

@@ -20,10 +20,10 @@ test("migrates a fresh database and seeds projects and experience idempotently",
     const owner = await repository.findOwner();
     assert.deepEqual(
       owner?.experience.map((item) => item.projectName),
-      ["RISC-V Course", "Clover English", "ClientSpace", "HandShaker"],
+      ["RISC-V Course", "Smart-Credit", "naparnik", "Clover English"],
     );
     assert.ok(owner?.experience.every((item) => item.startDate === null));
-    assert.equal(owner?.projects[4].name, "Визитная карточка на NestJS");
+    assert.equal(owner?.projects[6].name, "Визитная карточка на NestJS");
     await db.profile.delete({ where: { id: "owner" } });
     for (const count of await Promise.all([
       db.skill.count(),
