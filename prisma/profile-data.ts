@@ -1,4 +1,38 @@
-// Биография и проекты из «Резюме 5 CS TS.pdf»; текущая визитка добавлена отдельно.
+// Биография и избранные проекты из «Резюме 5.pdf».
+// Остальные проекты — снимок публичных авторских (не fork) репозиториев GitHub на 21.11.2026.
+const monthNames = [
+  "Январь",
+  "Февраль",
+  "Март",
+  "Апрель",
+  "Май",
+  "Июнь",
+  "Июль",
+  "Август",
+  "Сентябрь",
+  "Октябрь",
+  "Ноябрь",
+  "Декабрь",
+];
+
+function githubProject(
+  name: string,
+  description: string | null,
+  language: string | null,
+  createdAt: string,
+) {
+  const [year, month] = createdAt.split("-").map(Number);
+  return {
+    name,
+    url: `https://github.com/Pavel-Mernov/${name}`,
+    website: null,
+    description: description ?? "Публичный репозиторий GitHub.",
+    technologies: language ? [language, "GitHub"] : ["GitHub"],
+    period: `${monthNames[month - 1]} ${year}`,
+    featured: false,
+  };
+}
+
 export const profileData = {
   name: "Павел Константинович Мернов",
   title: "Junior Fullstack Developer — React, TypeScript, C#, Kotlin / Java",
@@ -45,14 +79,14 @@ export const profileData = {
     "Codex",
     "Cursor",
   ],
-  // Проектный опыт из резюме: точные даты не указаны, поэтому не выдумываем их.
+  // Проектный опыт и даты из резюме.
   experience: [
     {
       company: "НИУ ВШЭ",
       projectName: "RISC-V Course",
       position: "Fullstack-разработчик — дипломный проект",
-      period: "Дипломный проект; даты не указаны",
-      startDate: null,
+      period: "Сентябрь 2025 — настоящее время",
+      startDate: new Date("2025-09-01T00:00:00.000Z"),
       endDate: null,
       achievements:
         "Разработал SPA frontend, JWT-аутентификацию и взаимодействие через REST API. Реализовал микросервисную backend-архитектуру и автоматическую проверку решений студентов.",
@@ -61,9 +95,9 @@ export const profileData = {
       company: "Хакатон Альфа-Будущее",
       projectName: "Smart-Credit",
       position: "Frontend-разработчик — командный проект",
-      period: "Хакатон; даты не указаны",
-      startDate: null,
-      endDate: null,
+      period: "Октябрь 2026",
+      startDate: new Date("2026-10-01T00:00:00.000Z"),
+      endDate: new Date("2026-10-31T00:00:00.000Z"),
       achievements:
         "Разработал адаптивный кредитный кабинет и пошаговое оформление заявки. Интегрировал backend API, ролевые интерфейсы, AI-помощника, ML-индикацию проверки и светлую/тёмную темы.",
     },
@@ -71,9 +105,9 @@ export const profileData = {
       company: "Hack&Change — трек Авито",
       projectName: "naparnik",
       position: "Frontend-разработчик и DevOps — командный проект",
-      period: "Хакатон; даты не указаны",
-      startDate: null,
-      endDate: null,
+      period: "Ноябрь 2026",
+      startDate: new Date("2026-11-01T00:00:00.000Z"),
+      endDate: new Date("2026-11-30T00:00:00.000Z"),
       achievements:
         "Создал интерфейсы для стажёра, бадди, эксперта и руководителя, путь адаптации, задачи, AI-чат, уведомления и базу знаний. Развернул веб-приложение на Linux-сервере в Docker.",
     },
@@ -81,8 +115,8 @@ export const profileData = {
       company: "Личный проект",
       projectName: "Clover English",
       position: "Frontend-разработчик — pet-проект",
-      period: "Pet-проект; даты не указаны",
-      startDate: null,
+      period: "Август 2025 — настоящее время",
+      startDate: new Date("2025-08-01T00:00:00.000Z"),
       endDate: null,
       achievements:
         "Создал SPA-приложение для школы английского языка: пользовательский интерфейс, React-компоненты и клиентскую логику.",
@@ -91,9 +125,9 @@ export const profileData = {
       company: "НИУ ВШЭ",
       projectName: "ClientSpace",
       position: "Android-разработчик — курсовой проект",
-      period: "3 курс; точные даты не указаны",
-      startDate: null,
-      endDate: null,
+      period: "Октябрь 2024 — май 2025",
+      startDate: new Date("2024-10-01T00:00:00.000Z"),
+      endDate: new Date("2025-05-31T00:00:00.000Z"),
       achievements:
         "Разработал Android-приложение приватного мессенджера с текстовыми и голосовыми сообщениями и передачей файлов на Kotlin и Android SDK.",
     },
@@ -101,9 +135,9 @@ export const profileData = {
       company: "НИУ ВШЭ",
       projectName: "HandShaker",
       position: "Desktop-разработчик — курсовой проект",
-      period: "2 курс; точные даты не указаны",
-      startDate: null,
-      endDate: null,
+      period: "Ноябрь 2023 — апрель 2024",
+      startDate: new Date("2023-11-01T00:00:00.000Z"),
+      endDate: new Date("2024-04-30T00:00:00.000Z"),
       achievements:
         "Разработал desktop-приложение приватного мессенджера с текстовыми и голосовыми сообщениями и передачей файлов на C# и WPF.",
     },
@@ -125,6 +159,8 @@ export const profileData = {
         "JWT",
         "REST API",
       ],
+      period: "Сентябрь 2025 — настоящее время",
+      featured: true,
     },
     {
       name: "Smart-Credit",
@@ -139,6 +175,8 @@ export const profileData = {
         "REST API",
         "AI / ML",
       ],
+      period: "Октябрь 2026",
+      featured: true,
     },
     {
       name: "naparnik",
@@ -154,6 +192,8 @@ export const profileData = {
         "Linux",
         "AI",
       ],
+      period: "Ноябрь 2026",
+      featured: true,
     },
     {
       name: "Clover English",
@@ -162,6 +202,8 @@ export const profileData = {
       description:
         "Pet-проект. SPA-приложение для школы английского языка: пользовательский интерфейс, React-компоненты и клиентская логика приложения.",
       technologies: ["React", "TypeScript", "Material UI"],
+      period: "Август 2025 — настоящее время",
+      featured: true,
     },
     {
       name: "ClientSpace",
@@ -170,6 +212,8 @@ export const profileData = {
       description:
         "Курсовой проект НИУ ВШЭ, 3 курс. Android-приложение приватного мессенджера: текстовые и голосовые сообщения, передача файлов.",
       technologies: ["Kotlin", "Android SDK"],
+      period: "Октябрь 2024 — май 2025",
+      featured: true,
     },
     {
       name: "HandShaker",
@@ -178,6 +222,8 @@ export const profileData = {
       description:
         "Курсовой проект НИУ ВШЭ, 2 курс. Desktop-приложение приватного мессенджера: текстовые и голосовые сообщения, передача файлов.",
       technologies: ["C#", "WPF (Windows Presentation Foundation)"],
+      period: "Ноябрь 2023 — апрель 2024",
+      featured: true,
     },
     {
       name: "Визитная карточка на NestJS",
@@ -207,6 +253,109 @@ export const profileData = {
         "Playwright",
         "Nginx",
       ],
+      period: "Ноябрь 2026 — настоящее время",
+      featured: true,
     },
+    githubProject(
+      "JunoScript",
+      "JunoScript — JavaScript с типизацией во время выполнения.",
+      "JavaScript",
+      "2026-09-23",
+    ),
+    githubProject("EtoLegkoTest", null, "TypeScript", "2026-11-19"),
+    githubProject("VeloclubHSEBot", null, "TypeScript", "2026-09-22"),
+    githubProject("nest-users-api", null, "TypeScript", "2026-08-14"),
+    githubProject("Effective-Mobile-Node-JS", null, "TypeScript", "2026-05-01"),
+    githubProject("Ozon-Progress", null, "JavaScript", "2026-04-27"),
+    githubProject(
+      "CatsDogsNature",
+      "Android-проект CatsDogsNature.",
+      "Kotlin",
+      "2026-02-06",
+    ),
+    githubProject("react_internship_2025", null, "TypeScript", "2025-11-27"),
+    githubProject("InternshipCV2025", null, null, "2025-06-21"),
+    githubProject(
+      "FlutterFinalProject",
+      "Итоговый проект курса Flutter.",
+      "C++",
+      "2025-06-08",
+    ),
+    githubProject(
+      "Cat-tinder-pro",
+      "Flutter-приложение Cat Tinder Pro.",
+      "Dart",
+      "2025-05-16",
+    ),
+    githubProject(
+      "Arch-HW5",
+      "Работа по курсу архитектуры программного обеспечения.",
+      null,
+      "2025-05-07",
+    ),
+    githubProject(
+      "React_Cat_API",
+      "Приложение для работы с Cat API.",
+      "TypeScript",
+      "2025-04-08",
+    ),
+    githubProject("React-sem-intl", null, "TypeScript", "2025-03-23"),
+    githubProject("Rect-JWT-SEM", null, "TypeScript", "2025-03-22"),
+    githubProject("Flutter-Task-1", null, "C++", "2025-03-16"),
+    githubProject("FirstElectronProject", null, "TypeScript", "2025-03-12"),
+    githubProject("react-hw5", null, "TypeScript", "2025-02-24"),
+    githubProject(
+      "React_HW4",
+      "Учебный проект курса React.",
+      "TypeScript",
+      "2025-02-06",
+    ),
+    githubProject(
+      "React-Redux-Sem",
+      "Учебный проект по Redux.",
+      "TypeScript",
+      "2025-01-15",
+    ),
+    githubProject(
+      "React_HW3",
+      "Учебный проект курса React.",
+      "TypeScript",
+      "2024-12-15",
+    ),
+    githubProject("seminar-10", null, null, "2024-11-24"),
+    githubProject(
+      "DataBases-HW9",
+      "Работа по курсу баз данных.",
+      null,
+      "2024-11-18",
+    ),
+    githubProject(
+      "React-HW2",
+      "Учебный проект курса React.",
+      "TypeScript",
+      "2024-10-28",
+    ),
+    githubProject(
+      "DataBasesHW7",
+      "Работа по курсу баз данных.",
+      "Jupyter Notebook",
+      "2024-10-17",
+    ),
+    githubProject(
+      "React-HW1",
+      "Учебный проект курса React.",
+      "TypeScript",
+      "2024-09-27",
+    ),
+    githubProject("springBins", null, "Kotlin", "2024-04-12"),
+    githubProject("KPO2", null, "Kotlin", "2024-03-09"),
+    githubProject(
+      "Notes",
+      "Репозиторий дистрибутива Android-приложения.",
+      "C#",
+      "2024-01-04",
+    ),
+    githubProject("cinemaKPO", null, "Kotlin", "2023-12-24"),
+    githubProject("HelloStudent", null, "Java", "2021-02-10"),
   ],
 };

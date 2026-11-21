@@ -13,8 +13,8 @@ test("migrates a fresh database and seeds projects and experience idempotently",
     await seed(db);
     await seed(db);
     assert.equal(await db.profile.count(), 1);
-    assert.equal(await db.project.count(), 5);
-    assert.equal(await db.experience.count(), 4);
+    assert.equal(await db.project.count(), 38);
+    assert.equal(await db.experience.count(), 6);
     assert.equal(await db.skill.count(), profileData.skills.length);
     const repository = new ProfileRepository(db as PrismaService);
     const owner = await repository.findOwner();
@@ -22,8 +22,13 @@ test("migrates a fresh database and seeds projects and experience idempotently",
       owner?.experience.map((item) => item.projectName),
       ["RISC-V Course", "Smart-Credit", "naparnik", "Clover English"],
     );
-    assert.ok(owner?.experience.every((item) => item.startDate === null));
+    assert.equal(
+      owner?.experience[0].startDate?.toISOString(),
+      "2025-09-01T00:00:00.000Z",
+    );
     assert.equal(owner?.projects[6].name, "Визитная карточка на NestJS");
+    assert.ok(owner?.projects.slice(0, 7).every((item) => item.featured));
+    assert.ok(owner?.projects.slice(7).every((item) => !item.featured));
     await db.profile.delete({ where: { id: "owner" } });
     for (const count of await Promise.all([
       db.skill.count(),

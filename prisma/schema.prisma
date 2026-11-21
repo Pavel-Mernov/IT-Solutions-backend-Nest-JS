@@ -56,6 +56,8 @@ model Project {
   technologies String
   website String?
   url String
+  period String @default("Период не указан")
+  featured Boolean @default(false)
   order Int
   profileId String
   profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)

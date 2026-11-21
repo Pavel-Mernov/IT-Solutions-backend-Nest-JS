@@ -13,6 +13,8 @@ export interface Project {
   url: string;
   website: string | null;
   technologies: string[];
+  period: string;
+  featured: boolean;
 }
 export interface Profile {
   name: string;
@@ -33,7 +35,7 @@ const PROFILE_QUERY = `query BusinessCard {
     links { label url }
     skills { name }
     experience { company projectName position period startDate endDate achievements }
-    projects { name description url website technologies }
+    projects { name description url website technologies period featured }
   }
 }`;
 

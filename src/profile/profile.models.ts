@@ -25,6 +25,8 @@ export class Project {
   @Field(() => String, { nullable: true }) website!: string | null;
   @Field() name!: string;
   @Field() url!: string;
+  @Field() period!: string;
+  @Field() featured!: boolean;
 }
 @ObjectType()
 export class Profile {

@@ -35,7 +35,7 @@ test("executes nested GraphQL contract through resolver and service", async () =
     source: `{ profile {
     name links { label url } skills { name }
     experience { company projectName position period startDate endDate achievements }
-    projects { name technologies website }
+    projects { name technologies website period featured }
   } }`,
   });
   assert.equal(result.errors, undefined);
@@ -46,15 +46,23 @@ test("executes nested GraphQL contract through resolver and service", async () =
       startDate: string | null;
       period: string;
     }[];
-    projects: { technologies: string[]; website: string | null }[];
+    projects: {
+      technologies: string[];
+      website: string | null;
+      period: string;
+      featured: boolean;
+    }[];
   };
   assert.equal(profile.name, "Павел Константинович Мернов");
   assert.equal(profile.experience.length, 6);
   assert.equal(profile.experience[0].projectName, "RISC-V Course");
-  assert.equal(profile.experience[0].startDate, null);
-  assert.match(profile.experience[4].period, /3 курс/);
+  assert.equal(profile.experience[0].startDate, "2025-09-01T00:00:00.000Z");
+  assert.match(profile.experience[4].period, /Октябрь 2024/);
+  assert.equal(profile.projects.length, 38);
   assert.ok(profile.projects[6].technologies.includes("React"));
   assert.equal(profile.projects[6].website, null);
+  assert.equal(profile.projects[6].featured, true);
+  assert.equal(profile.projects[7].featured, false);
 });
 
 test("allows missing profile and rejects unknown fields", async () => {
@@ -69,7 +77,7 @@ test("allows missing profile and rejects unknown fields", async () => {
   assert.match(invalid.errors?.[0].message ?? "", /Cannot query field/);
 });
 
-test("schema is read-only and exposes nullable dates for undated project work", () => {
+test("schema is read-only and exposes project dates", () => {
   assert.equal(schema.getMutationType(), undefined);
   const type = schema.getType("Experience");
   assert.ok(type && "getFields" in type);
